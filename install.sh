@@ -17,7 +17,7 @@ sudo dnf install coreutils wl-clipboard xdg-utils cmake curl fuzzel rsync wget r
 wget https://github.com/sentriz/cliphist/releases/download/v0.5.0/v0.5.0-linux-amd64 -O cliphist
 chmod +x cliphist
 sudo cp cliphist /usr/local/bin/cliphist
-sudo dnf install tinyxml tinyxml2
+sudo dnf install tinyxml tinyxml2 tinyxml2-devel
 sudo dnf install python3-build python3-pillow python3-setuptools_scm python3-wheel
 sudo dnf install hyprland
 sudo dnf install xrandr xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
