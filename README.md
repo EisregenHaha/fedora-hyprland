@@ -31,7 +31,7 @@ For the Arch version, visit: [end-4/dots-hyprland](https://github.com/end-4/dots
 Run the automatic installer:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/EisregenHaha/fedora-hyprland/main/setup.sh)
+bash <(curl -s https://raw.githubusercontent.com/esa-codes/hype/main/setup.sh)
 ```
 
 Then **reboot** and select the **Hyprland (non-uwsm)** session to log in.
