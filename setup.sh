@@ -2,10 +2,10 @@
 
 set -e
 
-REPO_URL="https://github.com/EisregenHaha/fedora-hyprland"
-CLONE_DIR="$HOME/.cache/fedora-hyprland"
+REPO_URL="https://github.com/esa-codes/hype.git"
+CLONE_DIR="$HOME/.cache/hype"
 
-echo "Cloning Fedora Hyprland dotfiles..."
+echo "Cloning Hype dotfiles..."
 
 # If the directory exists, prompt reuse or delete
 if [[ -d "$CLONE_DIR" ]]; then
