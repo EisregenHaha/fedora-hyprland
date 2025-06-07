@@ -45,8 +45,8 @@ run_script() {
 # Force copy of dotfiles (no exclusions)
 copy_dotfiles() {
     echo -e "${YELLOW}Copying dotfiles to ~/.config and ~/.local (no exclusions)...${NC}"
-    cp -Rf .config/* ~/.config/ || { echo -e "${RED}❌ Failed copying .config${NC}"; exit 1; }
-    cp -Rf .local/* ~/.local/   || { echo -e "${RED}❌ Failed copying .local${NC}"; exit 1; }
+    cp -Rf ../.config/* ~/.config/ || { echo -e "${RED}❌ Failed copying .config${NC}"; exit 1; }
+    cp -Rf ../.local/* ~/.local/   || { echo -e "${RED}❌ Failed copying .local${NC}"; exit 1; }
     echo -e "${GREEN}✅ Dotfiles copied successfully.${NC}"
 }
 
@@ -61,10 +61,10 @@ copy_dotfiles_smart() {
     [[ -e ~/.config/ags/user_options.jsonc ]] && RSYNC_EXCLUDES+=(--exclude 'ags/user_options.jsonc')
     [[ -e ~/.config/hypr/hyprland.conf ]] && RSYNC_EXCLUDES+=(--exclude 'hypr/hyprland.conf')
 
-    rsync -a "${RSYNC_EXCLUDES[@]}" .config/ ~/.config/ \
+    rsync -a "${RSYNC_EXCLUDES[@]}" ../.config/ ~/.config/ \
         || { echo -e "${RED}❌ Failed copying to ~/.config${NC}"; exit 1; }
 
-    rsync -a .local/ ~/.local/ \
+    rsync -a ../.local/ ~/.local/ \
         || { echo -e "${RED}❌ Failed copying to ~/.local${NC}"; exit 1; }
 
     fix_gtk_ownership
