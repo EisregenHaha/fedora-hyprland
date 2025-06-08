@@ -203,28 +203,36 @@ const apiCommandStack = Stack({
     }, {}),
 })
 
-export const apiContentStack = IconTabContainer({
-    tabSwitcherClassName: 'sidebar-icontabswitcher',
-    className: 'margin-top-5',
-    iconWidgets: APIS.map((api) => api.tabIcon),
-    names: APIS.map((api) => api.name),
-    children: APIS.map((api) => api.contentWidget),
-    initIndex: currentApiId,
-    onChange: (self, id) => {
-        apiCommandStack.shown = APIS[id].name;
-        chatPlaceholder.label = APIS[id].placeholderText;
+export const apiWidgets = IconTabContainer({
+    iconWidgets: currentApiId === -1 ? [] : APIS.map(api => api.tabIcon),
+    contentWidgets: currentApiId === -1 ? [] : APIS.map(api => api.contentWidget),
+    stackedNetRows: true, // Stack items on top of each other if they don't fit
+    onChange: (id) => {
         currentApiId = id;
-        const pageName = APIS[id].id;
-        const option = 'sidebar.pages.apis.defaultPage';
-        updateNestedProperty(userOptions, option, pageName);
-        execAsync(['bash', '-c', `${App.configDir}/scripts/ags/agsconfigurator.py \
-            --key ${option} \
-            --value ${pageName} \
-            --file ${AGS_CONFIG_FILE}`
-        ]).catch(print);
-    }
-
+        updateChatPlaceholder(); // Use the new function to update placeholders
+        // Update commands
+        if (currentApiId !== -1 && APIS[currentApiId]) {
+            const newCommands = APIS[currentApiId].commandBar;
+            if (newCommands && newCommands.attribute && typeof newCommands.attribute.id !== 'undefined') {
+                apiCommandStack.shown = `${newCommands.attribute.id}`;
+            } else {
+                // Fallback if commandBar or its id is not defined for the current API
+                // Potentially hide or show a default state for apiCommandStack
+            }
+        } else {
+            // Handle case where currentApiId might be invalid (e.g. all APIs removed)
+        }
+    },
 });
+
+// Initialize apiWidgets with the potentially corrected currentApiId
+if (currentApiId !== -1 && APIS.length > 0) {
+    apiWidgets.attribute.openTab(currentApiId);
+} else if (APIS.length === 0) {
+    // Handle the case where no APIs are available after filtering
+    // e.g., show a message in the UI or disable the API section
+    print('AGS API Widgets: No APIs available after filtering. Waifu/Booru might have been the only configured APIs.');
+}
 
 function switchToTab(id) {
     apiContentStack.shown.value = id;
