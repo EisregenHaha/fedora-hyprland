@@ -34,11 +34,11 @@ export const chatEntry = TextView({
             }
         })
         .hook(GPTService, (self) => {
-            if (APIS[currentApiId].name != 'Assistant (GPTs)') return;
+            if (currentApiId === -1 || !APIS[currentApiId] || APIS[currentApiId].name != 'Assistant (GPTs)') return;
             self.placeholderText = (GPTService.key.length > 0 ? getString('Message the model...') : getString('Enter API Key...'));
         }, 'hasKey')
         .hook(Gemini, (self) => {
-            if (APIS[currentApiId].name != 'Assistant (Gemini Pro)') return;
+            if (currentApiId === -1 || !APIS[currentApiId] || APIS[currentApiId].name != 'Assistant (Gemini Pro)') return;
             self.placeholderText = (Gemini.key.length > 0 ? getString('Message Gemini...') : getString('Enter Google AI API Key...'));
         }, 'hasKey')
         .on("key-press-event", (widget, event) => {
@@ -234,23 +234,6 @@ if (currentApiId !== -1 && APIS.length > 0) {
     print('AGS API Widgets: No APIs available after filtering. Waifu/Booru might have been the only configured APIs.');
 }
 
-function switchToTab(id) {
-    apiContentStack.shown.value = id;
-}
 
-const apiWidgets = Widget.Box({
-    attribute: {
-        'nextTab': () => switchToTab(Math.min(currentApiId + 1, APIS.length - 1)),
-        'prevTab': () => switchToTab(Math.max(0, currentApiId - 1)),
-    },
-    vertical: true,
-    className: 'spacing-v-10',
-    homogeneous: false,
-    children: [
-        apiContentStack,
-        apiCommandStack,
-        textboxArea,
-    ],
-});
 
 export default apiWidgets;
