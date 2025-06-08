@@ -137,13 +137,16 @@
             ],
             "defaultPage": "apis",
             "apis": {
+                "name": "APIs",
+                "icon": "",
                 "order": [
+                    "chatgpt",
                     "gemini",
-                    "gpt",
-                    "waifu",
-                    "booru"
+                    "palm"
+                    // "waifu",
+                    // "booru"
                 ],
-                "defaultPage": "gemini"
+                "defaultPage": "chatgpt"
             }
         },
         "quickToggles": {

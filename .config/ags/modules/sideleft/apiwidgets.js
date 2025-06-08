@@ -9,8 +9,8 @@ import GPTService from '../../services/gpt.js';
 import Gemini from '../../services/gemini.js';
 import { GeminiView, geminiCommands, sendMessage as geminiSendMessage, geminiTabIcon } from './apis/gemini.js';
 import { ChatGPTView, chatGPTCommands, sendMessage as chatGPTSendMessage, chatGPTTabIcon } from './apis/chatgpt.js';
-import { WaifuView, waifuCommands, sendMessage as waifuSendMessage, waifuTabIcon } from './apis/waifu.js';
-import { BooruView, booruCommands, sendMessage as booruSendMessage, booruTabIcon } from './apis/booru.js';
+// import { WaifuView, waifuCommands, sendMessage as waifuSendMessage, waifuTabIcon } from './apis/waifu.js';
+// import { BooruView, booruCommands, sendMessage as booruSendMessage, booruTabIcon } from './apis/booru.js';
 import { enableClickthrough } from "../.widgetutils/clickthrough.js";
 import { checkKeybind } from '../.widgetutils/keybind.js';
 const TextView = Widget.subclass(Gtk.TextView, "AgsTextView");
@@ -86,7 +86,7 @@ const APILIST = {
         "tabIcon": chatGPTTabIcon,
         "placeholderText": getString('Message the model...'),
     },
-    'waifu': {
+    /* 'waifu': {
         "name": 'Waifus',
         "sendCommand": waifuSendMessage,
         "contentWidget": WaifuView(chatEntry),
@@ -101,13 +101,19 @@ const APILIST = {
         "commandBar": booruCommands,
         "tabIcon": booruTabIcon,
         "placeholderText": getString('Enter tags and/or page number'),
-    },
+    }, */
 }
-const APIS = userOptions.sidebar.pages.apis.order.map((apiName) => {
-    const obj = { ...APILIST[apiName] };
-    obj["id"] = apiName;
-    return obj;
-});
+const APIS = userOptions.sidebar.pages.apis.order
+    .map((apiName) => {
+        const apiConfig = APILIST[apiName];
+        if (!apiConfig) { // If apiName corresponds to a commented-out API (e.g., 'waifu', 'booru')
+            return undefined;
+        }
+        const obj = { ...apiConfig };
+        obj["id"] = apiName;
+        return obj;
+    })
+    .filter(api => api !== undefined); // Filter out undefined entries
 let currentApiId = APIS.findIndex(obj => obj.id === userOptions.sidebar.pages.apis.defaultPage);
 
 function apiSendMessage(textView) {
@@ -117,12 +123,11 @@ function apiSendMessage(textView) {
     const text = buffer.get_text(start, end, true).trimStart();
     if (!text || text.length == 0) return;
     // Send
-    if (APIS[currentApiId].name == APILIST['booru'].name)
-        APIS[currentApiId].sendCommand(text, APILIST['booru'].contentWidget)
-    else
-        APIS[currentApiId].sendCommand(text)
-    // Reset
-    buffer.set_text("", -1);
+    if (currentApiId < 0 || currentApiId >= APIS.length) currentApiId = 0;
+    // if (APIS[currentApiId].name == APILIST['booru']?.name) // Optional chaining for safety
+    //     APIS[currentApiId].sendCommand(text, APILIST['booru'].contentWidget)
+    else APIS[currentApiId].sendCommand(text)
+    chatEntry.text = '';
     chatEntryWrapper.toggleClassName('sidebar-chat-wrapper-extended', false);
     chatEntry.set_valign(Gtk.Align.CENTER);
 }
