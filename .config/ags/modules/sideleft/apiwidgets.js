@@ -115,6 +115,10 @@ const APIS = userOptions.sidebar.pages.apis.order
     })
     .filter(api => api !== undefined); // Filter out undefined entries
 let currentApiId = APIS.findIndex(obj => obj.id === userOptions.sidebar.pages.apis.defaultPage);
+// Ensure currentApiId is valid, default to 0 if not found or if APIS is empty
+if (currentApiId < 0 || currentApiId >= APIS.length) {
+    currentApiId = APIS.length > 0 ? 0 : -1; // Default to 0 if APIS has items, else -1
+}
 
 function apiSendMessage(textView) {
     // Get text
@@ -123,10 +127,12 @@ function apiSendMessage(textView) {
     const text = buffer.get_text(start, end, true).trimStart();
     if (!text || text.length == 0) return;
     // Send
+    if (APIS.length === 0) return; // Do nothing if no APIs are available
     if (currentApiId < 0 || currentApiId >= APIS.length) currentApiId = 0;
+    if (!APIS[currentApiId]) return; // Should not happen with the check above, but as a safeguard
     // if (APIS[currentApiId].name == APILIST['booru']?.name) // Optional chaining for safety
     //     APIS[currentApiId].sendCommand(text, APILIST['booru'].contentWidget)
-    else APIS[currentApiId].sendCommand(text)
+    else APIS[currentApiId].sendCommand(text);
     chatEntry.text = '';
     chatEntryWrapper.toggleClassName('sidebar-chat-wrapper-extended', false);
     chatEntry.set_valign(Gtk.Align.CENTER);
@@ -161,8 +167,10 @@ const chatSendButton = Button({
     label: 'arrow_upward',
     setup: setupCursorHover,
     onClicked: (self) => {
-        APIS[currentApiId].sendCommand(chatEntry.get_buffer().text);
-        chatEntry.get_buffer().set_text("", -1);
+        if (APIS.length > 0 && APIS[currentApiId]) {
+            APIS[currentApiId].sendCommand(chatEntry.get_buffer().text);
+            chatEntry.get_buffer().set_text("", -1);
+        }
     },
 });
 
@@ -170,8 +178,24 @@ const chatPlaceholder = Label({
     className: 'txt-subtext txt-smallie margin-left-5',
     hpack: 'start',
     vpack: 'center',
-    label: APIS[currentApiId].placeholderText,
+    label: (APIS.length > 0 && currentApiId !== -1 && APIS[currentApiId]) ? APIS[currentApiId].placeholderText : (APIS.length === 0 ? 'No APIs available' : ''),
 });
+
+// Update placeholder when currentApiId changes
+const updateChatPlaceholder = () => {
+    if (APIS.length > 0 && currentApiId !== -1 && APIS[currentApiId]) {
+        chatPlaceholder.label = APIS[currentApiId].placeholderText;
+        chatEntry.placeholderText = (APIS[currentApiId].name === 'Assistant (GPTs)' && GPTService.key.length === 0) ? getString('Enter API Key...') :
+                                   (APIS[currentApiId].name === 'Assistant (Gemini Pro)' && Gemini.key.length === 0) ? getString('Enter Google AI API Key...') :
+                                   APIS[currentApiId].placeholderText;
+    } else {
+        chatPlaceholder.label = APIS.length === 0 ? 'No APIs available' : '';
+        chatEntry.placeholderText = APIS.length === 0 ? 'No APIs available' : getString('Select an API');
+    }
+};
+
+// Initial placeholder update
+Utils.idle(updateChatPlaceholder);
 
 const chatPlaceholderRevealer = Revealer({
     revealChild: true,
@@ -197,10 +221,10 @@ const textboxArea = Box({ // Entry area
 const apiCommandStack = Stack({
     transition: 'slide_up_down',
     transitionDuration: userOptions.animations.durationLarge,
-    children: APIS.reduce((acc, api) => {
+    children: APIS.length > 0 ? APIS.reduce((acc, api) => {
         acc[api.name] = api.commandBar;
         return acc;
-    }, {}),
+    }, {}) : {},
 })
 
 export const apiWidgets = IconTabContainer({
@@ -215,6 +239,10 @@ export const apiWidgets = IconTabContainer({
             const newCommands = APIS[currentApiId].commandBar;
             if (newCommands && newCommands.attribute && typeof newCommands.attribute.id !== 'undefined') {
                 apiCommandStack.shown = `${newCommands.attribute.id}`;
+            } else if (APIS.length > 0 && APIS[currentApiId] && APIS[currentApiId].commandBar) {
+                // Fallback if id is not directly on attribute, but commandBar itself is the shown target
+                // This might need adjustment based on how commandBar is structured for other APIs
+                apiCommandStack.shown = `${APIS[currentApiId].commandBar.name || APIS[currentApiId].name}`;
             } else {
                 // Fallback if commandBar or its id is not defined for the current API
                 // Potentially hide or show a default state for apiCommandStack
