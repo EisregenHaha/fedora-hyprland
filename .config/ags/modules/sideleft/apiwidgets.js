@@ -227,10 +227,41 @@ const apiCommandStack = Stack({
     }, {}) : {},
 })
 
+const noApisWidget = () => Box({
+    vertical: true,
+    vexpand: true,
+    hexpand: true,
+    hpack: 'center',
+    vpack: 'center',
+    className: 'spacing-v-15',
+    attribute: { name: 'no-apis' }, // Add a name for the stack to refer to
+    children: [
+        Icon({
+            icon: 'dialog-information-symbolic',
+            size: 50,
+        }),
+        Label({
+            label: 'No APIs available.',
+        }),
+        Label({
+            label: 'Please check your user_options.jsonc',
+            className: 'txt-small'
+        }),
+    ]
+});
+
 export const apiWidgets = IconTabContainer({
-    iconWidgets: currentApiId === -1 ? [] : APIS.map(api => api.tabIcon),
-    contentWidgets: currentApiId === -1 ? [] : APIS.map(api => api.contentWidget),
+    iconWidgets: APIS.length > 0 ? APIS.map(api => api.tabIcon) : [],
+    contentWidgets: APIS.length > 0 ? APIS.map(api => api.contentWidget) : [noApisWidget()],
     stackedNetRows: true, // Stack items on top of each other if they don't fit
+    name: 'apis', // Add a name for easier reference if needed
+    setup: (self) => {
+        if (APIS.length === 0) {
+            // If IconTabContainer has a way to show a placeholder when no tabs, use it.
+            // Otherwise, this setup in contentWidgets should handle it.
+            // self.children = [noApisWidget()]; // This might conflict with IconTabContainer's internal structure
+        }
+    },
     onChange: (id) => {
         currentApiId = id;
         updateChatPlaceholder(); // Use the new function to update placeholders
@@ -254,12 +285,17 @@ export const apiWidgets = IconTabContainer({
 });
 
 // Initialize apiWidgets with the potentially corrected currentApiId
-if (currentApiId !== -1 && APIS.length > 0) {
+if (APIS.length > 0 && currentApiId !== -1) {
     apiWidgets.attribute.openTab(currentApiId);
 } else if (APIS.length === 0) {
-    // Handle the case where no APIs are available after filtering
-    // e.g., show a message in the UI or disable the API section
-    print('AGS API Widgets: No APIs available after filtering. Waifu/Booru might have been the only configured APIs.');
+    // The IconTabContainer's contentWidgets should now show the noApisWidget.
+    // We might need to explicitly set the shown child of its internal stack if it doesn't default correctly.
+    // Accessing internal stack might be fragile, IconTabContainer should ideally handle this.
+    // For now, relying on the contentWidgets change.
+    print('AGS API Widgets: No APIs available. Displaying placeholder.');
+    // If apiWidgets has an internal stack for content, try to set its shown child:
+    // This is a guess, IconTabContainer's internals are not exposed.
+    // if (apiWidgets.contentStack) apiWidgets.contentStack.shown = 'no-apis'; 
 }
 
 
