@@ -104,9 +104,18 @@ export const TabContainer = ({
         ...rest,
     });
 
-    mainBox.nextTab = () => shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
-    mainBox.prevTab = () => shownIndex.value = Math.max(shownIndex.value - 1, 0);
-    mainBox.cycleTab = () => shownIndex.value = (shownIndex.value + 1) % count;
+    mainBox.nextTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
+    };
+    mainBox.prevTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.max(shownIndex.value - 1, 0);
+    };
+    mainBox.cycleTab = () => {
+        if (count === 0) return;
+        shownIndex.value = (shownIndex.value + 1) % count;
+    };
 
     return mainBox;
 }
@@ -121,7 +130,11 @@ export const IconTabContainer = ({
 }) => {
     const shownIndex = Variable(initIndex);
     let previousShownIndex = 0;
-    const count = Math.min(iconWidgets.length, names.length, children.length);
+    // Use contentWidgets (children) length as the primary determinant for count if names is not provided.
+    // This makes it more robust for apiwidgets.js where names is not passed.
+    const count = typeof names !== 'undefined' && names !== null ? 
+                    Math.min(iconWidgets.length, names.length, children.length) :
+                    Math.min(iconWidgets.length, children.length);
     const tabs = Box({
         hpack: tabsHpack,
         className: `spacing-h-5 ${tabSwitcherClassName}`,
@@ -133,8 +146,13 @@ export const IconTabContainer = ({
             onClicked: () => shownIndex.value = i,
         })),
         setup: (self) => self.hook(shownIndex, (self) => {
-            self.children[previousShownIndex].toggleClassName('tab-icon-active', false);
-            self.children[shownIndex.value].toggleClassName('tab-icon-active', true);
+            if (count === 0) return; // Do nothing if there are no tabs
+            if (self.children[previousShownIndex]) {
+                self.children[previousShownIndex].toggleClassName('tab-icon-active', false);
+            }
+            if (self.children[shownIndex.value]) {
+                self.children[shownIndex.value].toggleClassName('tab-icon-active', true);
+            }
             previousShownIndex = shownIndex.value;
         }),
     });
@@ -178,9 +196,18 @@ export const IconTabContainer = ({
         },
         ...rest,
     });
-    mainBox.nextTab = () => shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
-    mainBox.prevTab = () => shownIndex.value = Math.max(shownIndex.value - 1, 0);
-    mainBox.cycleTab = () => shownIndex.value = (shownIndex.value + 1) % count;
+    mainBox.nextTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
+    };
+    mainBox.prevTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.max(shownIndex.value - 1, 0);
+    };
+    mainBox.cycleTab = () => {
+        if (count === 0) return;
+        shownIndex.value = (shownIndex.value + 1) % count;
+    };
     mainBox.shown = shownIndex;
 
     return mainBox;
@@ -284,9 +311,18 @@ export const ExpandingIconTabContainer = ({
         },
         ...rest,
     });
-    mainBox.nextTab = () => shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
-    mainBox.prevTab = () => shownIndex.value = Math.max(shownIndex.value - 1, 0);
-    mainBox.cycleTab = () => shownIndex.value = (shownIndex.value + 1) % count;
+    mainBox.nextTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.min(shownIndex.value + 1, count - 1);
+    };
+    mainBox.prevTab = () => {
+        if (count === 0) return;
+        shownIndex.value = Math.max(shownIndex.value - 1, 0);
+    };
+    mainBox.cycleTab = () => {
+        if (count === 0) return;
+        shownIndex.value = (shownIndex.value + 1) % count;
+    };
     mainBox.focusName = (name) => {
         const focusIndex = names.indexOf(name);
         if (focusIndex !== -1) {
