@@ -250,6 +250,20 @@ esac
 
 # some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
 # since the files here come from different places, not only about one program.
+
+# Copy AGS custom module templates to user cache
+echo "[$0]: Deploying AGS custom module templates..."
+AGS_USER_SCRIPTS_SOURCE_DIR="$base/ags/user/scripts" # $base is defined at the top of install.sh
+AGS_USER_SCRIPTS_DEST_DIR="$XDG_CACHE_HOME/ags/user/scripts"
+
+if [ -d "$AGS_USER_SCRIPTS_SOURCE_DIR" ]; then
+  v mkdir -p "$AGS_USER_SCRIPTS_DEST_DIR"
+  # Use rsync to copy and overwrite. --delete is not used here as we only want to ensure these specific scripts are present and updated.
+  v rsync -av "$AGS_USER_SCRIPTS_SOURCE_DIR/" "$AGS_USER_SCRIPTS_DEST_DIR/"
+else
+  echo "[$0]: Warning: Source directory for AGS custom module templates not found: $AGS_USER_SCRIPTS_SOURCE_DIR"
+fi
+
 v rsync -av ".local/bin/" "$XDG_BIN_HOME"
 
 # Prevent hyprland from not fully loaded
