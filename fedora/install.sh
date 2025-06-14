@@ -44,7 +44,7 @@ sudo dnf install gnome-bluetooth bluez-cups bluez blueman -y
 sudo dnf install gammastep mate-polkit -y
 
 # Core utilities
-sudo dnf install coreutils wl-clipboard xdg-utils curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs axel -y
+sudo dnf install coreutils wl-clipboard xdg-utils curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs axel eza -y
 sudo dnf install brightnessctl ddcutil -y
 
 # Audio & media
