@@ -18,11 +18,22 @@ For the Arch version, visit: [end-4/dots-hyprland](https://github.com/end-4/dots
 
 ---
 
-##  Preview
+<div align="center">
+    <h2>• screenshots •</h2>
+    <h3></h3>
+</div>
 
-![Screenshot_2025-05-30_02 56 51](https://github.com/user-attachments/assets/ae859013-0537-4f51-afd6-64545777aeea)
+## illogical-impulse<sup>Quickshell</sup>
 
----
+| AI | Common widgets |
+|:---|:---------------|
+| ![image](https://github.com/user-attachments/assets/08d26785-b54d-4ad1-875b-bb08cc6757f5) | ![image](https://github.com/user-attachments/assets/4fcd63d9-0943-4b21-8737-4bed97b71961) |
+| Window management | Weeb power |
+| ![image](https://github.com/user-attachments/assets/86cc511b-0d33-4c78-bcc0-3037d02a17da) | ![image](https://github.com/user-attachments/assets/292259fc-57d3-4663-a583-2ce2faad13fb) |
+
+By the way...
+- The funny notification positions are mimicking Android 16's dragging behavior
+- The clock on the wallpaper is automatically placed at the "least busy" region of the image
 
 ## Installation
 
