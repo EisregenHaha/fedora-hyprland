@@ -74,9 +74,10 @@ To update the configs:
 - Uncomment the lines found in ~/.config/hypr/custom/env.conf
 
 ### Keybinds
-- Default keybinds: Parts similar to Windows and GNOME. Hit Super+/ for a list
-    
-   ![image](https://github.com/user-attachments/assets/c09531c9-3b55-493a-880f-7e044cd9dca0)
+  
+   - **Default keybinds**: Should be somewhat familiar if you've used Windows or GNOME. 
+     - For a list, hit `Super`+`/`
+     - For a terminal, hit `Super`+`Enter`
 
 
 ### Archive (not needed)
