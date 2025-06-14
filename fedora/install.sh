@@ -29,7 +29,7 @@ sudo dnf install unzip hypridle libsoup-devel -y
 
 # Hyprland and related packages
 sudo dnf install hyprland hyprland-qtutils -y
-sudo dnf install hyprpicker hyprutils hyprwayland-scanner hyprlock wlogout pugixml -y
+sudo dnf install hyprpicker hyprutils hyprshot hyprwayland-scanner hyprlock wlogout pugixml -y
 sudo dnf install hyprlang-devel -y
 
 # GUI and toolkit dependencies
