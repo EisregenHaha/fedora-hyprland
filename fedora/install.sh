@@ -16,6 +16,7 @@ sudo dnf install @development-tools -y
 sudo dnf copr enable atim/starship -y
 sudo dnf copr enable solopasha/hyprland -y
 sudo dnf copr enable errornointernet/quickshell -y
+sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:luisbocanegra/Fedora_42/home:luisbocanegra.repo
 
 # Core development tools
 sudo dnf install cmake clang -y
@@ -105,7 +106,7 @@ qt6-qt5compat qt6-qtbase qt6-qtdeclarative qt6-qtimageformats qt6-qtmultimedia \
 qt6-qtpositioning qt6-qtquicktimeline qt6-qtsensors qt6-qtsvg qt6-qttools \
 qt6-qttranslations qt6-qtvirtualkeyboard qt6-qtwayland
 
-sudo dnf install wtype matugen quickshell grimblast
+sudo dnf install wtype matugen quickshell grimblast kde-material-you-colors -y
 
 # Final message
 echo -e "\e[1m✅ Installation complete. Proceed with the fonts script.\e[0m"
