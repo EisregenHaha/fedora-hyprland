@@ -24,7 +24,7 @@ sudo dnf install cmake clang -y
 sudo dnf install cargo -y
 
 # Python packages
-sudo dnf install python3 python3-devel -y
+sudo dnf install python3 python3-devel python3.12 python3.12-devel -y
 sudo dnf install unzip hypridle libsoup-devel -y
 
 # Hyprland and related packages
