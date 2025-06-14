@@ -82,11 +82,28 @@ run_full_install() {
 fix_gtk_ownership() {
     local user=$(whoami)
     echo "Changing ownership of GTK 4.0 config files to user: $user"
-    sudo chown "$user" ~/.config/gtk-4.0
-    sudo chown "$user" ~/.config/gtk-4.0/gtk.css
-    sudo chown "$user" ~/.config/gtk-4.0/gtk-dark.css
-    sudo chown -R $USER:$USER ~/.local/state/quickshell ~/.config/Kvantum
-    sudo chmod -R u+rw ~/.local/state/quickshell ~/.config/Kvantum
+
+    if [ -e ~/.config/gtk-4.0 ]; then
+        sudo chown "$user" ~/.config/gtk-4.0
+    fi
+
+    if [ -f ~/.config/gtk-4.0/gtk.css ]; then
+        sudo chown "$user" ~/.config/gtk-4.0/gtk.css
+    fi
+
+    if [ -f ~/.config/gtk-4.0/gtk-dark.css ]; then
+        sudo chown "$user" ~/.config/gtk-4.0/gtk-dark.css
+    fi
+
+    if [ -d ~/.local/state/quickshell ]; then
+        sudo chown -R "$user":"$user" ~/.local/state/quickshell
+        sudo chmod -R u+rw ~/.local/state/quickshell
+    fi
+
+    if [ -d ~/.config/Kvantum ]; then
+        sudo chown -R "$user":"$user" ~/.config/Kvantum
+        sudo chmod -R u+rw ~/.config/Kvantum
+    fi
 }
 
 # Menu loop
