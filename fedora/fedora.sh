@@ -62,7 +62,7 @@ copy_dotfiles_smart() {
     rsync -a "${RSYNC_EXCLUDES[@]}" .config/ ~/.config/ \
         || { echo -e "${RED}❌ Failed copying to ~/.config${NC}"; exit 1; }
 
-    fix_gtk_ownership
+    fix_gtk_ownership || { echo -e "${RED}❌ Failed: fix_gtk_ownership${NC}"; exit 1; }
 
     echo -e "${GREEN}✅ Dotfiles copied successfully.${NC}"
 }
@@ -73,8 +73,8 @@ run_full_install() {
     run_script "$INSTALL_SCRIPT" sudo || { echo -e "${RED}❌ Failed: $INSTALL_SCRIPT${NC}"; exit 1; }
     run_script "$FONTS_SCRIPT" ""     || { echo -e "${RED}❌ Failed: $FONTS_SCRIPT${NC}"; exit 1; }
     run_script "$MANUAL_HELPER_SCRIPT" "" || { echo -e "${RED}❌ Failed: $MANUAL_HELPER_SCRIPT${NC}"; exit 1; }
-    copy_dotfiles_smart
-    fix_gtk_ownership
+    copy_dotfiles_smart || { echo -e "${RED}❌ Failed: copy_dotfiles_smart${NC}"; exit 1; }
+    fix_gtk_ownership || { echo -e "${RED}❌ Failed: fix_gtk_ownership${NC}"; exit 1; }
     echo -e "${GREEN}🎉 Full installation completed successfully! You can now reboot and select Hyprland at login.${NC}"
 }
 
