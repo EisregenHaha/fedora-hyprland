@@ -2,7 +2,7 @@
 
 # 【 end_4's Hyprland Dotfiles for Fedora 】
 
- Automated setup for a Hyprland desktop environment on **Fedora Linux**  
+ Automated setup of the Quickshell version of end_4's dotfiles on **Fedora Linux**  
 
 
 </div>
