@@ -17,7 +17,12 @@ sudo dnf copr enable atim/starship -y
 sudo dnf copr enable solopasha/hyprland -y
 sudo dnf copr enable errornointernet/quickshell -y
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:luisbocanegra/Fedora_42/home:luisbocanegra.repo --overwrite
-sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release -y
+
+if ! dnf repolist --all | grep -qE '^terra\s'; then
+    dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+else
+    echo "Repo 'terra' already exists, skipping."
+fi
 
 # Core development tools
 sudo dnf install cmake clang -y
