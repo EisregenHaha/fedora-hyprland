@@ -85,6 +85,8 @@ fix_gtk_ownership() {
     sudo chown "$user" ~/.config/gtk-4.0
     sudo chown "$user" ~/.config/gtk-4.0/gtk.css
     sudo chown "$user" ~/.config/gtk-4.0/gtk-dark.css
+    sudo chown -R $USER:$USER ~/.local/state/quickshell ~/.config/Kvantum
+    sudo chmod -R u+rw ~/.local/state/quickshell ~/.config/Kvantum
 }
 
 # Menu loop
