@@ -107,7 +107,7 @@ qt6-qt5compat qt6-qtbase qt6-qtdeclarative qt6-qtimageformats qt6-qtmultimedia \
 qt6-qtpositioning qt6-qtquicktimeline qt6-qtsensors qt6-qtsvg qt6-qttools \
 qt6-qttranslations qt6-qtvirtualkeyboard qt6-qtwayland kdialog kf6-kirigami plasma-workspace 
 
-sudo dnf install wtype matugen quickshell grimblast kde-material-you-colors -y
+sudo dnf install wtype matugen quickshell grimblast kde-material-you-colors mpvpaper ffmpeg -y
 
 # Final message
 echo -e "\e[1m✅ Installation complete. Proceed with the fonts script.\e[0m"
