@@ -59,7 +59,7 @@ sudo dnf install tinyxml2 tinyxml2-devel -y
 sudo dnf install file-devel libwebp-devel libdrm-devel libgbm-devel pam-devel libsass-devel libsass -y
 
 # Theming and appearance
-sudo dnf install gnome-themes-extra adw-gtk3-theme qt5ct qt6ct qt6-qtwayland kcmshell6 qt5-qtwayland fontconfig jetbrains-mono-fonts gdouros-symbola-fonts lato-fonts fish foot starship -y
+sudo dnf install gnome-themes-extra adw-gtk3-theme qt5ct qt6ct qt6-qtwayland kcmshell6 qt5-qtwayland fontconfig jetbrains-mono-fonts gdouros-symbola-fonts lato-fonts fish kitty starship -y
 sudo dnf install aylurs-gtk-shell -y
 sudo dnf install kvantum kvantum-qt5 -y
 sudo dnf install libxdp-devel libxdp libportal -y
