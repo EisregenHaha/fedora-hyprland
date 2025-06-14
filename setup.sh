@@ -2,15 +2,16 @@
 
 set -e
 
-REPO_URL="https://github.com/EisregenHaha/fedora-hyprland"
+REPO_URL="https://github.com/EisregenHaha/fedora-hyprland/"
 CLONE_DIR="$HOME/.cache/fedora-hyprland"
+BRANCH="F42-ags"
 
-echo "Cloning Fedora Hyprland dotfiles..."
+echo "Cloning Fedora Hyprland dotfiles (branch: $BRANCH)..."
 
 # If the directory exists, prompt reuse or delete
 if [[ -d "$CLONE_DIR" ]]; then
     echo "Directory $CLONE_DIR already exists."
-    read -rp "Do you want to re-download/update fonts (not needed unless you notice icons missing)? (y/N): " confirm
+    read -rp "Do you want to delete and re-clone it? (y/N): " confirm
     if [[ "$confirm" =~ ^[Yy]$ ]]; then
         rm -rf "$CLONE_DIR"
         echo "Removed old directory."
@@ -21,7 +22,7 @@ fi
 
 # Clone if directory is missing
 if [[ ! -d "$CLONE_DIR" ]]; then
-    git clone --depth=1 "$REPO_URL" "$CLONE_DIR"
+    git clone --depth=1 --branch "$BRANCH" "$REPO_URL" "$CLONE_DIR"
     echo "Clone complete."
 fi
 
