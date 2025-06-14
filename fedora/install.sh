@@ -105,7 +105,7 @@ sudo dnf install -y \
 qt5-qtbase qt5-qtdeclarative qt5-qtsvg qt5-qttranslations qt5-qtwayland \
 qt6-qt5compat qt6-qtbase qt6-qtdeclarative qt6-qtimageformats qt6-qtmultimedia \
 qt6-qtpositioning qt6-qtquicktimeline qt6-qtsensors qt6-qtsvg qt6-qttools \
-qt6-qttranslations qt6-qtvirtualkeyboard qt6-qtwayland kdialog
+qt6-qttranslations qt6-qtvirtualkeyboard qt6-qtwayland kdialog kf6-kirigami plasma-workspace 
 
 sudo dnf install wtype matugen quickshell grimblast kde-material-you-colors -y
 
