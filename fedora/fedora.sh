@@ -46,13 +46,12 @@ run_script() {
 copy_dotfiles() {
     echo -e "${YELLOW}Copying dotfiles to ~/.config and ~/.local (no exclusions)...${NC}"
     cp -Rf .config/* ~/.config/ || { echo -e "${RED}❌ Failed copying .config${NC}"; exit 1; }
-    cp -Rf .local/* ~/.local/   || { echo -e "${RED}❌ Failed copying .local${NC}"; exit 1; }
     echo -e "${GREEN}✅ Dotfiles copied successfully.${NC}"
 }
 
 # dotfiles copy (skip custom/user files if already present)
 copy_dotfiles_smart() {
-    echo -e "${YELLOW}Copying dotfiles to ~/.config and ~/.local...${NC}"
+    echo -e "${YELLOW}Copying dotfiles to ~/.config...${NC}"
     
     mkdir -p ~/.config ~/.local
 
@@ -62,9 +61,6 @@ copy_dotfiles_smart() {
 
     rsync -a "${RSYNC_EXCLUDES[@]}" .config/ ~/.config/ \
         || { echo -e "${RED}❌ Failed copying to ~/.config${NC}"; exit 1; }
-
-    rsync -a .local/ ~/.local/ \
-        || { echo -e "${RED}❌ Failed copying to ~/.local${NC}"; exit 1; }
 
     fix_gtk_ownership
 
