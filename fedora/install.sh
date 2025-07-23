@@ -47,7 +47,7 @@ sudo dnf install gobject-introspection-devel gjs-devel pulseaudio-libs-devel -y
 # Desktop integrations and utilities
 sudo dnf install xrandr xdg-desktop-portal xdg-desktop-portal-kde xdg-desktop-portal-hyprland -y
 sudo dnf install gnome-bluetooth bluez-cups bluez -y
-sudo dnf install gammastep mate-polkit translate-shell -y
+sudo dnf install hyprsunset mate-polkit translate-shell -y
 
 # Core utilities
 sudo dnf install coreutils wl-clipboard xdg-utils curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs axel eza -y
