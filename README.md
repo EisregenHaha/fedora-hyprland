@@ -82,13 +82,16 @@ To update the configs:
 ### Common fixes
 - The Dark/Light and theme switcher wont work on first login, please select the "6) Update config files with exclusions" in the setup after your initial login to fix the permission error.
 - If you want to raise your volume above the limit of 90, open `~/.config/illogical-impulse/config.json` and set the max volume allowed to 100. This is just a safety measure.
-- If you're experiencing missing or broken icons, try switching your icon pack in the KDE settings, it's an issue with Adwaita. I use the Colloid icon pack.
+- If you're experiencing missing or broken icons, try switching your icon pack in the KDE settings and also check troubleshooting steps in the wiki, it's an issue with Adwaita.
 
 ### Keybinds
   
    - **Default keybinds**: Should be somewhat familiar if you've used Windows or GNOME. 
      - For a list, hit `Super`+`/`
      - For a terminal, hit `Super`+`Enter`
+     - Here's an image in case it does not load for some reason:
+<img width="1412" height="828" alt="image" src="https://github.com/user-attachments/assets/1c416bb9-bc31-4223-b063-9287ea11085f" />
+
 
 
 ### Archive (not needed)
@@ -97,7 +100,7 @@ To update the configs:
 
 ## Thanks
 
-- [@Kamion008](https://github.com/Kamion008) – Fedora version  
+- [@Kamion008](https://github.com/Kamion008) – Intial Fedora dependencies script
 - [@nullptroma](https://github.com/nullptroma) – Original OpenSUSE script Kamion008 used
 
                         
