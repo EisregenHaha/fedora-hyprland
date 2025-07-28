@@ -18,6 +18,8 @@ For the Arch version, visit: [end-4/dots-hyprland](https://github.com/end-4/dots
 
 ---
 
+_Note: **THERE IS NO FUCKING WAYBAR**_
+
 
 <div align="center">
     <h2>• screenshots •</h2>
