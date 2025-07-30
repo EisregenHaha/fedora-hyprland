@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [[ "$EUID" -eq 0 ]]; then echo "Do not run this script with sudo."; exit 1; fi
+
 set -e
 
 REPO_URL="https://github.com/EisregenHaha/fedora-hyprland/"
