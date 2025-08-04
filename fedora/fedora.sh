@@ -58,7 +58,7 @@ copy_dotfiles_smart() {
 
     RSYNC_EXCLUDES=()
     [[ -e ~/.config/hypr/custom ]] && RSYNC_EXCLUDES+=(--exclude 'hypr/custom/**')
-#    [[ -e ~/.config/hypr/hyprland.conf ]] && RSYNC_EXCLUDES+=(--exclude 'hypr/hyprland.conf')
+    [[ -e ~/.config/hypr/hyprland.conf ]] && RSYNC_EXCLUDES+=(--exclude 'hypr/hyprland.conf')
     [[ -e ~/.config/kde-material-you-colors/config.conf ]] && RSYNC_EXCLUDES+=(--exclude 'kde-material-you-colors/config.conf')
     [[ -e ~/.config/hypr/hypridle.conf ]] && RSYNC_EXCLUDES+=(--exclude 'hypr/hypridle.conf')
     
