@@ -26,9 +26,9 @@ Variants {
         required property var modelData
 
         // Hide when fullscreen
-        readonly property Toplevel activeWindow: ToplevelManager.activeToplevel
-        property bool focusingThisMonitor: HyprlandData.activeWorkspace?.monitor == monitor?.name
-        visible: !(activeWindow?.fullscreen && activeWindow?.activated && focusingThisMonitor)
+        property list<HyprlandWorkspace> workspacesForMonitor: Hyprland.workspaces.values.filter(workspace=>workspace.monitor && workspace.monitor.name == monitor.name)
+        property var activeWorkspaceWithFullscreen: workspacesForMonitor.filter(workspace=>((workspace.toplevels.values.filter(window=>window.wayland.fullscreen)[0] != undefined) && workspace.active))[0]
+        visible: !(activeWorkspaceWithFullscreen != undefined)
 
         // Workspaces
         property HyprlandMonitor monitor: Hyprland.monitorFor(modelData)
@@ -148,8 +148,13 @@ Variants {
         // Wallpaper
         Image {
             id: wallpaper
-            visible: !bgRoot.wallpaperIsVideo
+            visible: opacity > 0
+            opacity: (status === Image.Ready && !bgRoot.wallpaperIsVideo) ? 1 : 0
+            Behavior on opacity {
+                animation: Appearance.animation.elementMoveEnter.numberAnimation.createObject(this)
+            }
             property real value // 0 to 1, for offset
+            asynchronous: true
             value: {
                 // Range = groups that workspaces span on
                 const chunkSize = Config?.options.bar.workspaces.shown ?? 10;
