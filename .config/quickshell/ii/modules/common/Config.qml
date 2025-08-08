@@ -125,9 +125,12 @@ Singleton {
 
             property JsonObject bar: JsonObject {
                 property JsonObject autoHide: JsonObject {
-                    property bool enabled: false
+                    property bool enable: false
                     property bool pushWindows: false
-                    property bool showWhenPressingSuper: true
+                    property JsonObject showWhenPressingSuper: JsonObject {
+                        property bool enable: true
+                        property int delay: 140
+                    }
                 }
                 property bool bottom: false // Instead of top
                 property int cornerStyle: 0 // 0: Hug | 1: Float | 2: Plain rectangle
@@ -188,6 +191,7 @@ Singleton {
 
             property JsonObject interactions: JsonObject {
                 property JsonObject scrolling: JsonObject {
+                    property bool fasterTouchpadScroll: true // Enable faster scrolling with touchpad
                     property int mouseScrollDeltaThreshold: 120 // delta >= this then it gets detected as mouse scroll rather than touchpad
                     property int mouseScrollFactor: 120
                     property int touchpadScrollFactor: 450
