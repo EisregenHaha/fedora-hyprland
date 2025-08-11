@@ -94,6 +94,7 @@ To update the configs:
 ### Common fixes
 - The Dark/Light and theme switcher wont work on first login, please select the "6) Update config files with exclusions" in the setup after your initial login to fix the permission error.
 - If you want to raise your volume above the limit of 90, open `~/.config/illogical-impulse/config.json` and set the max volume allowed to 100. This is just a safety measure.
+- **Terminal colors not loading/invisible text**: If your terminal text appears invisible or colors aren't applying from wallpaper theming, this may be due to large wallpaper images failing color generation. Go to Settings → Advanced → Max image pixels and increase the limit for your wallpaper size. You can set to 0 for unlimited, but be careful with untrusted images as very large files could use excessive memory.
 - If you're experiencing missing or broken icons, try switching your icon pack in the KDE settings and also check troubleshooting steps in the wiki, it's an issue with Adwaita.
 
 ### Keybinds
