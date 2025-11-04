@@ -15,7 +15,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Script paths
 INSTALL_SCRIPT="$SCRIPT_DIR/install.sh"
 FONTS_SCRIPT="$SCRIPT_DIR/fonts.sh"
-MANUAL_HELPER_SCRIPT="$SCRIPT_DIR/../manual-install-helper.sh"
 
 # Ask if user wants to exit
 ask_exit() {
@@ -78,7 +77,6 @@ run_full_install() {
     echo -e "${YELLOW}Starting full installation...${NC}"
     run_script "$INSTALL_SCRIPT" sudo || { echo -e "${RED}❌ Failed: $INSTALL_SCRIPT${NC}"; exit 1; }
     run_script "$FONTS_SCRIPT" ""     || { echo -e "${RED}❌ Failed: $FONTS_SCRIPT${NC}"; exit 1; }
-    run_script "$MANUAL_HELPER_SCRIPT" "" || { echo -e "${RED}❌ Failed: $MANUAL_HELPER_SCRIPT${NC}"; exit 1; }
     copy_dotfiles_smart || { echo -e "${RED}❌ Failed: copy_dotfiles_smart${NC}"; exit 1; }
     fix_gtk_ownership || { echo -e "${RED}❌ Failed: fix_gtk_ownership${NC}"; exit 1; }
     echo -e "${GREEN}🎉 Full installation completed successfully! You can now reboot and select Hyprland at login.${NC}"
@@ -119,11 +117,10 @@ while true; do
     echo "2) Exit"
     echo ""
     echo -e "\n${YELLOW}Partial Installations (be sure of what you are doing):${NC}"
-    echo "3) Run manual-install-helper.sh"
-    echo "4) Force Copy ~/.config and ~/.local (no exclusions)"
-    echo "5) Install Dependencies"
-    echo "6) Update config files with exclusions"
-    echo "7) Install/Update Fonts"
+    echo "3) Force Copy ~/.config and ~/.local (no exclusions)"
+    echo "4) Install Dependencies"
+    echo "5) Update config files with exclusions"
+    echo "6) Install/Update Fonts"
     echo ""
 
     read -rp "Enter your choice [1-7]: " choice
@@ -138,22 +135,18 @@ while true; do
             exit 0
             ;;
         3)
-            run_script "$MANUAL_HELPER_SCRIPT" "" || { echo -e "${RED}❌ Failed: $MANUAL_HELPER_SCRIPT${NC}"; }
-            ask_exit
-            ;;
-        4)
             copy_dotfiles
             ask_exit
             ;;
-        5)
+        4)
             run_script "$INSTALL_SCRIPT" sudo || { echo -e "${RED}❌ Failed: $INSTALL_SCRIPT${NC}"; }
             ask_exit
             ;;
-        6)
+        5)
             copy_dotfiles_smart
             ask_exit
             ;;
-        7)
+        6)
             run_script "$FONTS_SCRIPT" "" || { echo -e "${RED}❌ Failed: $FONTS_SCRIPT${NC}"; }
             ask_exit
             ;;
