@@ -27,7 +27,7 @@ sudo dnf install python3 python3-devel python3.12 python3.12-devel -y
 sudo dnf install unzip hypridle libsoup-devel -y
 
 # Hyprland and related packages
-sudo dnf install hyprland hyprland-qtutils -y
+sudo dnf install hyprland -y
 sudo dnf install hyprpicker hyprutils hyprshot hyprwayland-scanner hyprlock wlogout pugixml -y
 sudo dnf install hyprlang-devel cliphist -y
 
