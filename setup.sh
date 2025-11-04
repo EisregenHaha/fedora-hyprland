@@ -24,7 +24,7 @@ fi
 
 # Clone if directory is missing
 if [[ ! -d "$CLONE_DIR" ]]; then
-    git clone --depth=1 --branch "$BRANCH" "$REPO_URL" "$CLONE_DIR"
+    git clone --depth=1 --branch "$BRANCH" "$REPO_URL" "$CLONE_DIR" --recurse-submodules
     echo "Clone complete."
 fi
 
