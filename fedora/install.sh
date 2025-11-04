@@ -18,7 +18,6 @@ sudo dnf copr enable solopasha/hyprland -y
 sudo dnf copr enable errornointernet/quickshell -y
 sudo dnf copr enable deltacopy/darkly -y
 sudo dnf copr enable alternateved/eza -y
-sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:luisbocanegra/Fedora_42/home:luisbocanegra.repo --overwrite
 
 # Core development tools
 sudo dnf install cmake clang -y
@@ -74,7 +73,7 @@ sudo dnf install appstream-util libsoup3-devel uv -y
 sudo dnf install -y make --allowerasing
 
 # Quickshell stuff
-sudo dnf install -y --allowerasing python-opencv plasma-desktop plasma-nm kdialog bluedevil plasma-systemmonitor wtype matugen quickshell-git-0.2.1^696.git0085881 grimblast kde-material-you-colors mpvpaper ffmpeg
+sudo dnf install -y --allowerasing python-opencv plasma-desktop plasma-nm kdialog bluedevil plasma-systemmonitor wtype matugen quickshell-git grimblast mpvpaper ffmpeg
 
 #upscayl
 read -rp "Do you want to install/Update Upscayl? (y/n): " choice
