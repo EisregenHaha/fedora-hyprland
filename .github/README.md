@@ -2,6 +2,10 @@
 
 # 【 end_4's Hyprland Dotfiles for Fedora 】
 
+
+#ARCHIVED AND CANCELLED BECAUSE SOMEONE ELSE MAINTAINING IT NOW IN THE OFFICIAL REPO #IMFREE
+
+
  Automated setup of the Quickshell version of end_4's dotfiles on **Fedora Linux**  
 
 
